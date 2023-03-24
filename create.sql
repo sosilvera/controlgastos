@@ -46,3 +46,12 @@ CREATE TABLE Gastos (
     FOREIGN KEY (MesPrimeraCuota) REFERENCES Periodos(IdPeriodo),
     FOREIGN KEY (MesUltimaCuota) REFERENCES Periodos(IdPeriodo)
 );
+
+CREATE TABLE Gasto_Mes (
+    idGasto_Mes INT PRIMARY KEY IDENTITY(1,1),
+    idGasto INT NOT NULL,
+    idPeriodo INT NOT NULL,
+    Monto DECIMAL(10, 2) NOT NULL,
+    CONSTRAINT FK_Gasto_Mes_Gastos FOREIGN KEY (idGasto) REFERENCES Gastos (IdGasto),
+    CONSTRAINT FK_Gasto_Mes_Periodos FOREIGN KEY (idPeriodo) REFERENCES Periodos (IdPeriodo)
+);
