@@ -1,7 +1,7 @@
 # controlgastos
 
 Quiero una app que me permita:
-- Insertar gastos, con las siguientes opciones:
+- ~Insertar gastos, con las siguientes opciones:~
 	- Monto
 	- Cuotas
 	- Intereses, y valor de la cuota

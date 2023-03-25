@@ -1,9 +1,9 @@
-DBNAME = 'AutomatePipelineV4'
+DBNAME = 'ControlGastos'
 TRUSTED_CONNECTION = 'yes'
 LOCAL = True
 
 if LOCAL:
-    SERVER = 'DESKTOP-F4ROTTR\SQLEXPRESS' #Server Seba 
+    SERVER = 'DESKTOP-0NB8DVB\SQLEXPRESS' #Server Seba 
     # SERVER = 'T210351' # Server Nico 
 else:
     SERVER = '10.249.15.27\INST1'

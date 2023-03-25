@@ -25,7 +25,6 @@ class DeudaBCRASchema(BaseModel):
     Situacion: str
     banco: BancoSchema
 
-
 class GastoSchema(BaseModel):
     IdGasto: int
     Descripcion: str
@@ -50,17 +49,13 @@ class GastoMesSchema(BaseModel):
     periodo: PeriodoSchema
     gasto: GastoSchema
 
-
 class GastoCreateSchema(BaseModel):
-    Descripcion: str
-    Monto: float
+    descripcion: str
+    monto: float
     idBanco: int
-    FechaCompra: str = datetime.today().strftime('%Y-%m-%d')
-    Cuotas_totales: int = 1
-    Intereses: bool = False
-    Valor_cuota: float = 0
-    Mes_primera_cuota: int = None
-    Mes_ultima_cuota: int = None
+    cantidad_cuotas: int
+    intereses: bool = False
+    valor_cuota: float
 
 class GastoPagosSchema(BaseModel):
     Cuotas_totales: int

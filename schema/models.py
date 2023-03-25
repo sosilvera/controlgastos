@@ -6,65 +6,69 @@ from datetime import datetime
 
 db = SQLAlchemy()
 
-class Banco(db.Model):
+class Bancos(db.Model):
     __tablename__ = "Bancos"
 
-    IdBanco = Column(Integer, primary_key=True, index=True)
-    Nombre = Column(String(100), index=True)
+    idBanco = Column(Integer, primary_key=True)
+    nombre = Column(String(100))
 
-class Banco_Limite(db.Model):
+    banco_limite = relationship("Banco_Limites", backref="Banco",  overlaps="banco,banco_limite")
+    deudaBCRA = relationship("DeudaBCRA", backref="Bancos", overlaps="banco,deudaBCRA")
+    gastos = relationship("Gastos", backref="Banco",  overlaps="banco,gastos")
+
+class Banco_Limites(db.Model):
     __tablename__ = "Banco_Limites"
 
-    Id = Column(Integer, primary_key=True, index=True)
-    IdBancoLimites = Column(Integer, ForeignKey("Bancos.IdBanco"))
-    Limite_total = Column(Float)
-    Limite_actual = Column(Float)
+    id = Column(Integer, primary_key=True, index=True)
+    idBancoLimites = Column(Integer, ForeignKey("Bancos.idBanco"))
+    limite_total = Column(Float)
+    limite_actual = Column(Float)
 
-    banco = relationship("Banco", back_populates="limites")
 
-class Periodo(db.Model):
+class Periodos(db.Model):
     __tablename__ = "Periodos"
 
-    IdPeriodo = Column(Integer, primary_key=True, index=True)
-    Numero_Mes = Column(Integer)
-    Numero_Anio = Column(Integer)
+    idPeriodo = Column(Integer, primary_key=True, index=True)
+    NumeroMes = Column(Integer)
+    NumeroAnio = Column(Integer)
+    descripcion = Column(String(50))
+
+    gasto_mes = relationship("Gasto_Mes", backref="Periodos", overlaps="periodos,gasto_mes")
 
 class DeudaBCRA(db.Model):
     __tablename__ = "DeudaBCRA"
 
     idDeuda = Column(Integer, primary_key=True, index=True)
-    idBanco = Column(Integer, ForeignKey("Bancos.IdBanco"))
-    Total = Column(Float)
-    Situacion = Column(String(50))
+    idBanco = Column(Integer, ForeignKey("Bancos.idBanco"))
+    total = Column(Float)
+    situacion = Column(String(50))
 
-    banco = relationship("Banco", back_populates="deudas")
 
-class Gasto(db.Model):
+class Gastos(db.Model):
     __tablename__ = "Gastos"
 
-    IdGasto = Column(Integer, primary_key=True, index=True)
-    Descripcion = Column(String(100))
-    Monto = Column(Float)
-    idBanco = Column(Integer, ForeignKey("Bancos.IdBanco"))
-    FechaCompra = Column(String(10), default=datetime.today().strftime('%Y-%m-%d'))
-    Cuotas_totales = Column(Integer, default=1)
-    Cuotas_pagas = Column(Integer, default=0)
-    Intereses = Column(Boolean, default=False)
-    Valor_cuota = Column(Float, default=0)
-    Mes_primera_cuota = Column(Integer, ForeignKey("Periodos.IdPeriodo"))
-    Mes_ultima_cuota = Column(Integer, ForeignKey("Periodos.IdPeriodo"))
+    idGasto = Column(Integer, primary_key=True, index=True)
+    descripcion = Column(String(100))
+    monto = Column(Float)
+    idBanco = Column(Integer, ForeignKey("Bancos.idBanco"))
+    fechaCompra = Column(String(10), default=datetime.today().strftime('%Y-%m-%d'))
+    cuotasTotales = Column(Integer, default=1)
+    cuotasPagas = Column(Integer, default=0)
+    intereses = Column(Boolean, default=False)
+    valorCuota = Column(Float, default=0)
+    MesPrimeraCuota = Column(Integer, ForeignKey("Periodos.idPeriodo"))
+    MesUltimaCuota = Column(Integer, ForeignKey("Periodos.idPeriodo"))
 
-    banco = relationship("Banco", back_populates="gastos")
-    mes_primera_cuota_rel = relationship("Periodo", foreign_keys=[Mes_primera_cuota])
-    mes_ultima_cuota_rel = relationship("Periodo", foreign_keys=[Mes_ultima_cuota])
+    mes_primera_cuota_rel = relationship("Periodos", foreign_keys=[MesPrimeraCuota])
+    mes_ultima_cuota_rel = relationship("Periodos", foreign_keys=[MesUltimaCuota])
+    gasto_mes = relationship("Gasto_Mes", backref="Gastos",  overlaps="gastos,gasto_mes")
 
 class Gasto_Mes(db.Model):
     __tablename__ = "Gasto_Mes"
 
-    IdGastoMes = Column(Integer, primary_key=True, index=True)
-    idPeriodo = Column(Integer, ForeignKey("Periodos.IdPeriodo"))
-    idGasto = Column(Integer, ForeignKey("Gastos.IdGasto"))
-    Monto = Column(Float)
+    idGastoMes = Column(Integer, primary_key=True, index=True)
+    idPeriodo = Column(Integer, ForeignKey("Periodos.idPeriodo"))
+    idGasto = Column(Integer, ForeignKey("Gastos.idGasto"))
+    monto = Column(Float)
 
-    periodo = relationship("Periodo", back_populates="gastos_mes")
-    gasto = relationship("Gasto", back_populates="gastos_mes")
+    

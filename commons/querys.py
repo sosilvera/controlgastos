@@ -1,4 +1,4 @@
-from schema.models import Pedido_Estado, Pedido_Historico, Pedidos, db
+from schema.models import Bancos, Periodos, Gastos,DeudaBCRA,Gasto_Mes,db
 from sqlalchemy import create_engine, func
 from sqlalchemy.orm import sessionmaker
 import urllib
@@ -15,10 +15,43 @@ class Querys():
         self.session = Session()
         
     def insertGasto(self, gasto):
-        return
+        self.session.add(gasto)
+        self.session.commit()
+        return gasto.idGasto
+
+    def insertGastoMes(self, idPrimeraCuota, idGasto, valorCuota, cantidadCuotas):
+        for i in range(idPrimeraCuota, idPrimeraCuota+cantidadCuotas):
+            cuota = Gasto_Mes(
+                idGasto = idGasto,
+                idPeriodo = i,
+                monto = valorCuota
+            )
+            self.session.add(cuota)
+        
+        self.session.commit()
+
+    def queryBancos(self):
+        bancos = self.session.query(Bancos).all()
+        return [{'id':banco.idBanco, 'nombre': banco.nombre} for banco in bancos]
 
     def queryConsumosPorMes(self):
-        return
+        query = self.session.query(Gasto_Mes.idGastoMes,Periodos.descripcion, Gastos.descripcion, Gastos.monto, Bancos.nombre).\
+            select_from(Gasto_Mes).\
+            join(Gastos, Gastos.idGasto == Gasto_Mes.idGasto).\
+            join(Bancos, Bancos.idBanco == Gastos.idBanco).\
+            join(Periodos, Gasto_Mes.idPeriodo == Periodos.idPeriodo).\
+            order_by(Gasto_Mes.idPeriodo)
+
+        result = []
+        for row in query.all():
+            result.append({
+                'periodo': row[0],
+                'descripcion': row[1],
+                'monto': row[2],
+                'banco': row[3]
+            })
+
+        return result
     
     def queryTotalesPorMes(self):
         return
@@ -34,15 +67,24 @@ class Querys():
     
     def queryDeudaBCRA(self):
         return
+    
+    def queryPeriodoByMes(self, mes, anio):
+        idPeriodo = self.session.query(Periodos.idPeriodo)\
+            .filter(Periodos.NumeroMes == mes)\
+            .filter(Periodos.NumeroAnio == anio)\
+            .first()
+        
+        return idPeriodo[0]
 
+    # Cierro la sesion de la base
+    def sessionClose(self):
+        self.session.close()
+
+"""
     def insertPedidoEstado(self, idPedido, estado, ambiente, machine):
         p = Pedido_Estado(idPedido=idPedido, estado=estado, ambiente=ambiente, nombreMaquina=machine)
         self.session.add(p)
         self.session.commit()
-    
-    def getTask(self, idPedido):
-        task = self.session.query(Pedidos).filter(Pedidos.idPedido == idPedido).first()
-        return task
     
 
     def getTasks(self):
@@ -65,7 +107,4 @@ class Querys():
             task_list.append(task)
 
         return task_list
-    
-    # Cierro la sesion de la base
-    def sessionClose(self):
-        self.session.close()
+"""
