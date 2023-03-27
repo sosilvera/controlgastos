@@ -1,11 +1,21 @@
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from schema.models import Bancos, Banco_Limites, Periodos,DeudaBCRA, Gastos, Gasto_Mes
 from schema.schemas import BancoSchema, BancoLimiteSchema, PeriodoSchema, DeudaBCRASchema, GastoSchema, GastoMesSchema, GastoCreateSchema
 from commons.querys import Querys
 import datetime
 
 app = FastAPI()
+
+# Agregar CORS Middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Configurar la conexión a la base de datos
 q = Querys()
