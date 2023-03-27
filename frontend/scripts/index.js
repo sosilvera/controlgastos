@@ -47,7 +47,6 @@ interesesCheckbox.addEventListener('change', function () {
     valorCuotaInput.disabled = false;
   } else {
     valorCuotaInput.disabled = true;
-    valorCuotaInput.value = '';
   }
   actualizarValorCuota();
 });
@@ -60,7 +59,7 @@ form.addEventListener('submit', function (event) {
     const idBanco = parseInt(form.idBanco.value);
     const cantidadCuotas = parseInt(form.cantidad_cuotas.value);
     const tieneIntereses = interesesCheckbox.checked;
-    const valorCuota = tieneIntereses ? parseFloat(valorCuotaInput.value) : null;
+    const valorCuota = parseFloat(valorCuotaInput.value);
   
     const data = {
       descripcion,

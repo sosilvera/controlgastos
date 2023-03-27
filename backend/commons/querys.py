@@ -35,7 +35,7 @@ class Querys():
         return [{'id':banco.idBanco, 'nombre': banco.nombre} for banco in bancos]
 
     def queryConsumosPorMes(self):
-        query = self.session.query(Gasto_Mes.idGastoMes,Periodos.descripcion, Gastos.descripcion, Gastos.monto, Bancos.nombre).\
+        query = self.session.query(Gasto_Mes.idGastoMes,Periodos.descripcion, Gastos.descripcion, Gasto_Mes.monto, Bancos.nombre).\
             select_from(Gasto_Mes).\
             join(Gastos, Gastos.idGasto == Gasto_Mes.idGasto).\
             join(Bancos, Bancos.idBanco == Gastos.idBanco).\
