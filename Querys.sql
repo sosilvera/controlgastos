@@ -25,3 +25,8 @@ group by idBanco;
 --- Ver consumos totales
 select sum(Monto) as totales
 from Gastos;
+
+
+select sum(Monto)
+from gasto_mes
+where idPeriodo = 1;

@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from schema.models import Bancos, Banco_Limites, Periodos,DeudaBCRA, Gastos, Gasto_Mes
 from schema.schemas import BancoSchema, BancoLimiteSchema, PeriodoSchema, DeudaBCRASchema, GastoSchema, GastoMesSchema, GastoCreateSchema
 from commons.querys import Querys
+import utils.graphics as gh
 import datetime
 
 app = FastAPI()
@@ -61,16 +62,16 @@ async def bancos():
 @app.get("/consumosMes")
 async def consumosMes():
         consumos = q.queryConsumosPorMes()
-        return JSONResponse(content=consumos)
+        consumosJson = JSONResponse(content=consumos)
+        gh.generar_grafico(consumos)
+        return consumosJson
 
-@app.get("/totalesMesTarjeta")
+@app.get("/totalesMesTarjeta") # Devuelve NULL
 async def consumosMesTarjeta():
-        consumos = q.queryTotalesPorTarjetaMes()
-        return JSONResponse(content=consumos)
-
-@app.get("/totalesMesTarjeta")
-async def totalesMesTarjeta():
-        consumos = q.queryTotalesPorTarjetaMes()
+        mesActual = datetime.date.today().month
+        periodo = q.queryPeriodoByMes(mesActual + 1, 2023)
+        
+        consumos = q.queryTotalesPorTarjetaProximoMes(periodo)
         return JSONResponse(content=consumos)
 
 @app.get("/totalesTarjeta")
@@ -78,12 +79,20 @@ async def totalesTarjeta():
         consumos = q.queryTotalesPorTarjeta()
         return JSONResponse(content=consumos)
 
-@app.get("/totales")
+@app.get("/totales") # Devuelve NULL
 async def totales():
         consumos = q.queryTotales()
         return JSONResponse(content=consumos)
 
-@app.get("/deudabcra")
+@app.get("/deudabcra") # Devuelve NULL
 async def deuda():
         deuda = q.queryDeudaBCRA()
-        return JSONResponse(content=deuda)
+        deudaJson = JSONResponse(content=deuda)
+        return deudaJson
+
+@app.get('/gastoProximoMes')
+async def proximoMes():
+        mesActual = datetime.date.today().month
+        periodo = q.queryPeriodoByMes(mesActual + 1, 2023)
+        total = q.queryTotalByPeriodo(periodo)
+        return JSONResponse(total)

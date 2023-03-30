@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ingresar gasto</title>
+    <link rel="stylesheet" href="styles/ingresar.css" />
+  </head>
+  <body>
+    <h1>Ingresar gasto</h1>
+    <form id="gasto-form">
+      <fieldset>
+        <legend>Datos del gasto</legend>
+        <label for="descripcion">Descripción:</label>
+        <input
+          type="text"
+          id="descripcion"
+          name="descripcion"
+          placeholder="Ingrese una descripción"
+          required
+        />
+        <label for="monto">Monto:</label>
+        <input
+          type="number"
+          id="monto"
+          name="monto"
+          placeholder="Ingrese el monto del gasto"
+          step="0.01"
+          min="0.01"
+          required
+        />
+        <label for="idBanco">Banco:</label>
+        <select id="idBanco" name="idBanco" required>
+        </select>
+        <option value="" disabled selected>Seleccione un banco</option>
+        <label for="cantidad_cuotas">Cantidad de cuotas:</label>
+        <input
+          type="number"
+          id="cantidad_cuotas"
+          name="cantidad_cuotas"
+          placeholder="Ingrese la cantidad de cuotas"
+          min="1"
+          required
+        />
+        <label>
+          <input
+            type="checkbox"
+            id="intereses"
+            name="intereses"
+            value="true"
+          />
+          ¿Tiene intereses?
+        </label>
+        <label for="valor_cuota">Valor de cuota:</label>
+        <input
+          type="number"
+          id="valor_cuota"
+          name="valor_cuota"
+          placeholder="Ingrese el valor de la cuota"
+          step="0.01"
+          min="0.01"
+          disabled
+        />
+        <button type="submit">Ingresar gasto</button>
+      </fieldset>
+    </form>
+    <script src="scripts/ingresarGasto.js"></script>
+  </body>
+</html>

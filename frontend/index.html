@@ -1,69 +1,79 @@
 <!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ingresar gasto</title>
-    <link rel="stylesheet" href="styles/index.css" />
-  </head>
-  <body>
-    <h1>Ingresar gasto</h1>
-    <form id="gasto-form">
-      <fieldset>
-        <legend>Datos del gasto</legend>
-        <label for="descripcion">Descripción:</label>
-        <input
-          type="text"
-          id="descripcion"
-          name="descripcion"
-          placeholder="Ingrese una descripción"
-          required
-        />
-        <label for="monto">Monto:</label>
-        <input
-          type="number"
-          id="monto"
-          name="monto"
-          placeholder="Ingrese el monto del gasto"
-          step="0.01"
-          min="0.01"
-          required
-        />
-        <label for="idBanco">Banco:</label>
-        <select id="idBanco" name="idBanco" required>
-        </select>
-        <option value="" disabled selected>Seleccione un banco</option>
-        <label for="cantidad_cuotas">Cantidad de cuotas:</label>
-        <input
-          type="number"
-          id="cantidad_cuotas"
-          name="cantidad_cuotas"
-          placeholder="Ingrese la cantidad de cuotas"
-          min="1"
-          required
-        />
-        <label>
-          <input
-            type="checkbox"
-            id="intereses"
-            name="intereses"
-            value="true"
-          />
-          ¿Tiene intereses?
-        </label>
-        <label for="valor_cuota">Valor de cuota:</label>
-        <input
-          type="number"
-          id="valor_cuota"
-          name="valor_cuota"
-          placeholder="Ingrese el valor de la cuota"
-          step="0.01"
-          min="0.01"
-          disabled
-        />
-        <button type="submit">Ingresar gasto</button>
-      </fieldset>
-    </form>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Dashboard</a>
+  </nav>
+  <div class="container-fluid mt-3">
+    <div class="row">
+      <div class="col-md-6 col-lg-3 mb-3">
+        <div class="card bg-warning text-white">
+          <div class="card-header">
+            Gastos próximos mes
+          </div>
+          <div class="card-body">
+            <h2 class="card-title" id="gastoProximoMes"></h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3 mb-3">
+        <div class="card bg-success text-white">
+          <div class="card-header">
+            Ingresar Gasto
+          </div>
+          <div class="card-body">
+            <button class="btn btn-lg btn-block btn-outline-light" id="botonIngresarGasto">Ingresar Gasto</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3 mb-3">
+        <div class="card bg-primary text-white">
+          <div class="card-header" id="titleBanco1">
+          </div>
+          <div class="card-body">
+            <h2 class="card-title" id="totalBanco1"></h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3 mb-3">
+        <div class="card bg-warning text-white">
+          <div class="card-header" id="titleBanco2">
+          </div>
+          <div class="card-body">
+            <h2 class="card-title" id="totalBanco2"></h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3 mb-3">
+        <div class="card bg-success text-white">
+          <div class="card-header" id="titleBanco3">
+          </div>
+          <div class="card-body">
+            <h2 class="card-title" id="totalBanco3"></h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 mb-3">
+        <div class="card">
+          <div class="card-header">
+            Gráfico 1
+          </div>
+          <div class="card-body">
+            <img src="../backend/grafico_1.png" class="img-fluid" alt="Gráfico 1">
+          </div>
+        </div>
+      </div>
+    </div>
     <script src="scripts/index.js"></script>
-  </body>
+</body>
 </html>

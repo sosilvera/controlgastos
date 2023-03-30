@@ -54,13 +54,27 @@ class Querys():
         return result
     
     def queryTotalesPorMes(self):
-        return
+        totalesMes = self.session.query(Gasto_Mes.idPeriodo, func.sum(Gasto_Mes.monto).label('Monto'))\
+                    .group_by(Gasto_Mes.idPeriodo)\
+                    .all()
+        return [{'idPeriodo':t.idPeriodo, 'monto':t.Monto} for t in totalesMes]
 
-    def queryTotalesPorTarjetaMes(self):
-        return
+    def queryTotalesPorTarjetaProximoMes(self, periodo):        
+        totalesTarjeta = self.session.query(Bancos.nombre, func.sum(Gastos.monto).label("totales")).\
+                            join(Gastos, Bancos.idBanco == Gastos.idBanco).\
+                            filter(Gasto_Mes.idPeriodo == periodo).\
+                            group_by(Bancos.nombre, Gastos.idBanco).\
+                            all()
+        return [{'nombre': t.nombre, 'totales': t.totales} for t in totalesTarjeta]
+        
+        return monto[0]
 
     def queryTotalesPorTarjeta(self):
-        return
+        totalesTarjeta = self.session.query(Bancos.nombre, func.sum(Gastos.monto).label("totales")).\
+                            join(Gastos, Bancos.idBanco == Gastos.idBanco).\
+                            group_by(Bancos.nombre, Gastos.idBanco).\
+                            all()
+        return [{'nombre': t.nombre, 'totales': t.totales} for t in totalesTarjeta]
 
     def queryTotales(self):
         return
@@ -75,10 +89,19 @@ class Querys():
             .first()
         
         return idPeriodo[0]
+    
+    def queryTotalByPeriodo(self, periodo):
+        monto = self.session.query(func.sum(Gasto_Mes.monto))\
+                .filter(Gasto_Mes.idPeriodo == periodo)\
+                .first()
+        
+        return monto[0]
 
     # Cierro la sesion de la base
     def sessionClose(self):
         self.session.close()
+
+
 
 """
     def insertPedidoEstado(self, idPedido, estado, ambiente, machine):
