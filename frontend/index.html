@@ -14,55 +14,65 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Dashboard</a>
   </nav>
+
   <div class="container-fluid mt-3">
-    <div class="row">
-      <div class="col-md-6 col-lg-3 mb-3">
-        <div class="card bg-warning text-white">
+
+    <div class="row align-items-stretch">
+      <div class="col-6 mb-4">
+        <div class="card bg-warning text-white h-100">
           <div class="card-header">
             Gastos próximos mes
           </div>
-          <div class="card-body">
-            <h2 class="card-title" id="gastoProximoMes"></h2>
+          <div class="card-body text-center">
+            <h2 class="card-title display-4" id="gastoProximoMes"></h2>
           </div>
         </div>
       </div>
-      <div class="col-md-6 col-lg-3 mb-3">
-        <div class="card bg-success text-white">
+
+      <div class="col-6 mb-4">
+        <div class="card bg-success text-white h-100">
           <div class="card-header">
             Ingresar Gasto
           </div>
-          <div class="card-body">
-            <button class="btn btn-lg btn-block btn-outline-light" id="botonIngresarGasto">Ingresar Gasto</button>
+          <div class="card-body text-center">
+            <button class="btn btn-lg btn-block btn-outline-light " id="botonIngresarGasto">Ingresar Gasto</button>
           </div>
         </div>
       </div>
-      <div class="col-md-6 col-lg-3 mb-3">
-        <div class="card bg-primary text-white">
-          <div class="card-header" id="titleBanco1">
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <div class="card bg-danger text-white">
+          <div class="card-header text-center" id="titleBanco1">
           </div>
           <div class="card-body">
-            <h2 class="card-title" id="totalBanco1"></h2>
+            <h2 class="card-title display-4 text-center" id="totalBanco1"></h2>
           </div>
         </div>
       </div>
-      <div class="col-md-6 col-lg-3 mb-3">
+
+      <div class="col-md-4 mb-3">
+        <div class="card bg-info text-white">
+          <div class="card-header text-center" id="titleBanco2">
+          </div>
+          <div class="card-body">
+            <h2 class="card-title display-4 text-center" id="totalBanco2"></h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-3">
         <div class="card bg-warning text-white">
-          <div class="card-header" id="titleBanco2">
+          <div class="card-header text-center" id="titleBanco3">
           </div>
           <div class="card-body">
-            <h2 class="card-title" id="totalBanco2"></h2>
+            <h2 class="card-title display-4 text-center" id="totalBanco3"></h2>
           </div>
         </div>
       </div>
-      <div class="col-md-6 col-lg-3 mb-3">
-        <div class="card bg-success text-white">
-          <div class="card-header" id="titleBanco3">
-          </div>
-          <div class="card-body">
-            <h2 class="card-title" id="totalBanco3"></h2>
-          </div>
-        </div>
-      </div>
+    </div>
+    <div class="row">
       <div class="col-md-12 mb-3">
         <div class="card">
           <div class="card-header">
@@ -73,6 +83,7 @@
           </div>
         </div>
       </div>
+
     </div>
     <script src="scripts/index.js"></script>
 </body>
