@@ -1,11 +1,7 @@
-DBNAME = 'ControlGastos'
+DBNAME = 'ControlGastos_PROD'
 TRUSTED_CONNECTION = 'yes'
 LOCAL = True
 
 if LOCAL:
     SERVER = 'DESKTOP-0NB8DVB\SQLEXPRESS' #Server Seba 
-    # SERVER = 'T210351' # Server Nico 
-else:
-    SERVER = '10.249.15.27\INST1'
-
 STRING_CONNECTION = 'DRIVER={ODBC Driver 17 for SQL Server};SERVER='+SERVER+';DATABASE='+DBNAME+';Trusted_Connection='+TRUSTED_CONNECTION

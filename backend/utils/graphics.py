@@ -22,11 +22,11 @@ def graficar_evolucion_gastos(data):
 def plot_evolucion_gastos(datos):
     # Crear un diccionario para almacenar los gastos totales por mes
     gastos_por_mes = {}
-    
+
     # Iterar sobre los datos para sumar los gastos de cada mes
     for d in datos:
         mes = d['descripcion']
-        gasto = d['banco']
+        gasto = d['banco'] # Deberia ser d['gasto'], hay que cambiar el servicio
         if mes in gastos_por_mes:
             gastos_por_mes[mes] += gasto
         else:
@@ -36,11 +36,13 @@ def plot_evolucion_gastos(datos):
     meses = list(gastos_por_mes.keys())
     gastos = list(gastos_por_mes.values())
 
-    # Configurar el gráfico
-    plt.plot(meses, gastos)
-    plt.xlabel('Mes')
-    plt.ylabel('Gasto total')
-    plt.title('Evolución de los gastos por mes')
+    fig, ax = plt.subplots()
+
+    ax.fill_between(meses, gastos, label='Evolucion de gastos', color='tab:red')
+    ax.grid(axis = 'y', color = 'gray', linestyle = 'dashed')
+    plt.xticks(rotation=45)
+    ax.legend(loc = 'upper right')
+    # plt.show()
 
     # Guardar la imagen
     plt.savefig('../frontend/resources/graficos/evolucionGastos.png')
