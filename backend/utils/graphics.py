@@ -19,7 +19,7 @@ def graficar_evolucion_gastos(data):
     print("Estoy en graficar")
     plt.savefig('evolucion_gastos.png')
 
-def generar_grafico(datos):
+def plot_evolucion_gastos(datos):
     # Crear un diccionario para almacenar los gastos totales por mes
     gastos_por_mes = {}
     
@@ -43,4 +43,4 @@ def generar_grafico(datos):
     plt.title('Evolución de los gastos por mes')
 
     # Guardar la imagen
-    plt.savefig('grafico_1.png')
+    plt.savefig('../frontend/resources/graficos/evolucionGastos.png')

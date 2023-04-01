@@ -63,7 +63,7 @@ async def bancos():
 async def consumosMes():
         consumos = q.queryConsumosPorMes()
         consumosJson = JSONResponse(content=consumos)
-        gh.generar_grafico(consumos)
+        gh.plot_evolucion_gastos(consumos)
         return consumosJson
 
 @app.get("/totalesMesTarjeta") # Devuelve NULL
