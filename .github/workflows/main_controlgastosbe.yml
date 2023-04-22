@@ -54,7 +54,7 @@ jobs:
           name: python-app
           path: .
       - name: Copy startup script to Azure
-        uses: azure/appservice-actions/webapp@v2
+        uses: azure/webapp@v2
         with:
           app-name: 'controlgastosbe'
           slot-name: 'Production'
