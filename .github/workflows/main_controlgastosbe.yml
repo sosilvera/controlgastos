@@ -53,7 +53,18 @@ jobs:
         with:
           name: python-app
           path: .
-          
+      - name: Copy startup script to Azure
+        uses: azure/appservice-actions/webapp@v2
+        with:
+          app-name: 'controlgastosbe'
+          slot-name: 'Production'
+          run-from-package: 'false'
+          action: 'scp'
+          src: './startup.sh'
+          target: '/home/site/wwwroot/startup.sh'
+          hostname: ${{ steps.deploy-to-webapp.outputs.hostname }}
+          username: ${{ steps.deploy-to-webapp.outputs.username }}
+          password: ${{ steps.deploy-to-webapp.outputs.password }}   
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
