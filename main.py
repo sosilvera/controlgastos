@@ -10,6 +10,16 @@ import datetime
 app = FastAPI()
 
 # Agregar CORS Middleware
+
+origins = [
+    "http://localhost",
+    "http://localhost:8000",
+    "http://localhost:3000",
+    "http://localhost:5000",
+    "https://purple-glacier-08152e110.3.azurestaticapps.net"
+]
+
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
